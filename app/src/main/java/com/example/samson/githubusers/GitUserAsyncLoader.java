@@ -33,7 +33,7 @@ public class GitUserAsyncLoader extends AsyncTaskLoader<List<Profile>> {
     public List<Profile> loadInBackground() {
 
         NetworkUtil util = new NetworkUtil();
-        List<Profile> profileList = util.makeRequest(BASE_URL, type, sort);
+        List<Profile> profileList = util.makeRequest(BASE_URL);
 
         return profileList;
     }

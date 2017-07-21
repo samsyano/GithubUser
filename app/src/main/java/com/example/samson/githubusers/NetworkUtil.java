@@ -27,8 +27,8 @@ public class NetworkUtil {
     static String SORT = "sort";
     static final String LOGCAT = NetworkUtil.class.getSimpleName();
 
-    public List<Profile> makeRequest(String reqUrl, String query, String sortLocation) {
-
+//    public List<Profile> makeRequest(String reqUrl, String query, String sortLocation) {
+    public List<Profile> makeRequest(String reqUrl){
         List<Profile> profileList = null;
 
         try {
