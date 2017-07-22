@@ -16,11 +16,11 @@ public class GitUserAsyncLoader extends AsyncTaskLoader<List<Profile>> {
         super(context);
     }
 
-    //    static final String BASE_URL =  "https://api.github.com/search/repositories?q=";
+        static final String BASE_URL =  "https://api.github.com/search/repositories";
     String type = "android";
     String sort = "lagos";
 
-    String BASE_URL = "https://api.github.com/search/repositories?q=android&lagos";
+//    String BASE_URL = "https://api.github.com/search/repositories?q=android&lagos";
 
 
     @Override
@@ -33,7 +33,8 @@ public class GitUserAsyncLoader extends AsyncTaskLoader<List<Profile>> {
     public List<Profile> loadInBackground() {
 
         NetworkUtil util = new NetworkUtil();
-        List<Profile> profileList = util.makeRequest(BASE_URL);
+//        List<Profile> profileList = util.makeRequest(BASE_URL);
+        List<Profile> profileList = util.makeRequest(BASE_URL, type, sort);
 
         return profileList;
     }

@@ -1,5 +1,6 @@
 package com.example.samson.githubusers;
 
+import android.net.Uri;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -23,28 +24,30 @@ import java.util.List;
 public class NetworkUtil {
 
 
-    static String PARAM_QUERY = "query";
+    static String PARAM_QUERY = "q";
     static String SORT = "sort";
     static final String LOGCAT = NetworkUtil.class.getSimpleName();
 
-//    public List<Profile> makeRequest(String reqUrl, String query, String sortLocation) {
-    public List<Profile> makeRequest(String reqUrl){
+    public List<Profile> makeRequest(String reqUrl, String query, String sortLocation) {
+//    public List<Profile> makeRequest(String reqUrl){
         List<Profile> profileList = null;
 
         try {
-//            Uri builtUri = Uri.parse(reqUrl).buildUpon().appendQueryParameter(PARAM_QUERY, query)
-//                    .appendQueryParameter(SORT, sortLocation).build();
-//            URL url = createUrl(builtUri.toString());
+            Uri builtUri = Uri.parse(reqUrl).buildUpon().appendQueryParameter(PARAM_QUERY, query)
+                    .appendQueryParameter(SORT, sortLocation).build();
+            String stringUrl = builtUri.toString();
+
+            URL url = createUrl(stringUrl);
 //            Log.i(LOGCAT, "Creating url: "+ url.toString());
-            URL url = createUrl(reqUrl);
+//            URL url = createUrl(reqUrl);
             String jsonStr = makeHttpRequest(url);
 
-            Log.i(LOGCAT, "HttpRequest made successfully....: " + jsonStr);
+//            Log.i(LOGCAT, "HttpRequest made successfully....: " + jsonStr);
 
             profileList = readJson(jsonStr);
 
         } catch (Exception e) {
-            Log.e(LOGCAT, "Error in : " + e.toString(), e);
+//            Log.e(LOGCAT, "Error in : " + e.toString(), e);
         }
 
         return profileList;
@@ -77,7 +80,7 @@ public class NetworkUtil {
 
                 jsonStr = readStream(inputStream);
             } else {
-                Log.e(LOGCAT, "Error code is : " + urlConnection.getResponseCode());
+//                Log.e(LOGCAT, "Error code is : " + urlConnection.getResponseCode());
             }
 
 
