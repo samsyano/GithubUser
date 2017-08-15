@@ -53,4 +53,5 @@ public class ProfileAdapter extends ArrayAdapter<Profile> {
 
         return view;
     }
+
 }

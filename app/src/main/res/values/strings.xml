@@ -1,4 +1,26 @@
 <resources>
     <string name="app_name">GithubUsers</string>
     <string name="profile_details">Profile</string>
+
+    <string name="action_settings">SETTINGS</string>
+
+    <!--EditTextPreference for sort-->
+    <string name="sort_editPreference_Label">Sort</string>
+    <string name="sort_editPreference_key">sort_label</string>
+    <string name="sort_editPreference_key_default">Sort</string>
+
+    <string name="dummy1_label">Dummy1</string>
+    <string name="dummy2_label">Dummy2</string>
+    <string name="dummy1">lagos</string>
+    <string name="dummy2">dummy2</string>
+
+
+
+    <string name="settings_order_by_magnitude_label">Magnitude</string>
+    <string name="settings_order_by_magnitude_value" translatable="false">magnitude</string>
+
+    <!-- Label for order-by most recent option [CHAR LIMIT=20] -->
+    <string name="settings_order_by_most_recent_label">Most Recent</string>
+    <string name="settings_order_by_most_recent_value" translatable="false">time</string>
+
 </resources>

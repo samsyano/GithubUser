@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+ <EditTextPreference
+     android:inputType="textAutoComplete"
+     android:title="@string/sort_editPreference_Label"
+     android:key="@string/sort_editPreference_key"
+     android:defaultValue="@string/dummy1"
+     android:selectAllOnFocus="true"/>
+
+</PreferenceScreen>
