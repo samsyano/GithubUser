@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -57,12 +56,10 @@ public class ProfileRecyclerAdapter extends RecyclerView.Adapter<ProfileRecycler
 
         ImageView imageView;
         TextView textView;
-        LinearLayout listLayout;
         public ProfileRecyclerViewHolder(View itemView) {
             super(itemView);
             imageView = (ImageView) itemView.findViewById(R.id.image_profile);
             textView = (TextView) itemView.findViewById(R.id.text_profile);
-            listLayout = (LinearLayout) itemView.findViewById(R.id.listView);
 
             itemView.setOnClickListener(this);
         }

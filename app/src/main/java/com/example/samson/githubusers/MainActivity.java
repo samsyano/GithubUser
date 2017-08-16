@@ -17,15 +17,16 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Profile>>, ProfileRecyclerAdapter.RecyclerClickInterface{
 
+    public static final int LOADER_CALLBACKS = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
 
 
-        getSupportLoaderManager().initLoader(1, null, this);
+        getSupportLoaderManager().initLoader(LOADER_CALLBACKS, null, this);
 
     }
 
@@ -50,6 +51,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 return true;
+
+            case R.id.refresh:
+
+
+        return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -71,34 +77,47 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         ConnectivityManager conMagr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = conMagr.getActiveNetworkInfo();
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        String sort = sharedPreferences.getString
-                (getString(R.string.sort_editPreference_key), getString(R.string.dummy1));
-
-//        String sort = sort_by.toLowerCase().trim();
-
-         final String BASE_URL =  "https://api.github.com/search/repositories";
-        String query = "android";
-//        String sort = "lagos";
-        String query_key = "q";
-        String sort_key = "sort";
-        Uri builtUri = Uri.parse(BASE_URL).buildUpon().appendQueryParameter(query_key, query)
-                .appendQueryParameter(sort_key, sort).build();
-
-        Log.e("URL ADDRESS", "The addreess is "+ builtUri.toString());
         if(netInfo != null && netInfo.isConnected()){
             progressBar.setVisibility(View.VISIBLE);
 
+            final String BASE_URL =  "https://api.github.com/search/repositories";
+
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+            String sort = sharedPreferences.getString
+                    (getString(R.string.sort_editPreference_key), getString(R.string.sort_by_value_default));
+
+            String query = sharedPreferences.getString
+                    (getString(R.string.query_editPreference_key), getString(R.string.query_editPreference_default_value));
+
+//        String query = "android";
+//        String sort = "lagos";
+            String query_key = "q";
+            String sort_key = "sort";
+            Uri builtUri = Uri.parse(BASE_URL).buildUpon().appendQueryParameter(query_key, query)
+                    .appendQueryParameter(sort_key, sort).build();
+
+
+            Log.e("URL ADDRESS", "The addreess is "+ builtUri.toString());
+
             return new GitUserAsyncLoader(MainActivity.this, builtUri.toString());
+
         }else{
             progressBar.setVisibility(View.GONE);
             emptyView.setText("No internet connection");
         }
+
         return null;
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("ON RESUME: ", "On resume called");
+        getSupportLoaderManager().restartLoader(LOADER_CALLBACKS, null, this);
+    }
 
     RecyclerView listView;
     ProfileRecyclerAdapter adapter;
@@ -118,7 +137,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         adapter = new ProfileRecyclerAdapter(MainActivity.this, data, this);
 
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.list_layout_view);
 
 //        listView.setEmptyView(emptyView);
         if(data!= null){
@@ -139,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoaderReset(Loader<List<Profile>> loader) {
 
+        listView.setAdapter(new ProfileRecyclerAdapter(this, new ArrayList<Profile>(), this));
     }
     Toast mToast;
 
@@ -154,4 +173,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
 
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

@@ -9,10 +9,13 @@
     <string name="sort_editPreference_key">sort_label</string>
     <string name="sort_editPreference_key_default">Sort</string>
 
-    <string name="dummy1_label">Dummy1</string>
-    <string name="dummy2_label">Dummy2</string>
-    <string name="dummy1">lagos</string>
-    <string name="dummy2">dummy2</string>
+    <string name="sort_by_value_default">lagos</string>
+
+    <!--EditTextPreference for querty q-->
+    <string name="query_editPreference_Label">Query</string>
+    <string name="query_editPreference_key">query_label</string>
+    <string name="query_editPreference_default_value">kotlin</string>
+    
 
 
 
