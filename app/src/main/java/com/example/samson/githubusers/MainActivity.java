@@ -51,11 +51,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 return true;
-
-            case R.id.refresh:
-
-
-        return true;
         }
         return super.onOptionsItemSelected(item);
     }
