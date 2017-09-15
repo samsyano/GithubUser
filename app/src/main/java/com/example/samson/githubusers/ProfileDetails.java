@@ -58,7 +58,7 @@ public class ProfileDetails  extends AppCompatActivity{
         });
 
         Picasso.with(getApplicationContext()).load(image)
-                .placeholder(R.drawable.placeholder_icon)
+                .placeholder(R.drawable.placeholder)
                 .error(R.drawable.share_icon)
                 .into(imageView);
 
