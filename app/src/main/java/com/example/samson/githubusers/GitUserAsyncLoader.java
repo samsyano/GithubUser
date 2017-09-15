@@ -19,9 +19,6 @@ public class GitUserAsyncLoader extends AsyncTaskLoader<List<Profile>> {
 
     }
 
-
-//    String BASE_URL = "https://api.github.com/search/repositories?q=android&lagos";
-
     @Override
     protected void onStartLoading() {
         super.onStartLoading();
@@ -33,7 +30,6 @@ public class GitUserAsyncLoader extends AsyncTaskLoader<List<Profile>> {
 
         NetworkUtil util = new NetworkUtil();
         List<Profile> profileList = util.makeRequest(url);
-//        List<Profile> profileList = util.makeRequest(BASE_URL, type, sort);
 
         return profileList;
     }

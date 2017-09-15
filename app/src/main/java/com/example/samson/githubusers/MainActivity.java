@@ -13,13 +13,11 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,8 +56,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     Profile profile;
     ProgressBar progressBar;
     TextView emptyView;
-    ProfileAdapter profileAdapter;
-//    ListView listView;
 
     @Override
     public Loader<List<Profile>> onCreateLoader(int id, Bundle args) {
@@ -94,7 +90,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     .appendQueryParameter(sort_key, sort).build();
 
 
-            Log.e("URL ADDRESS", "The addreess is "+ builtUri.toString());
 
             return new GitUserAsyncLoader(MainActivity.this, builtUri.toString());
 
@@ -110,13 +105,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e("ON RESUME: ", "On resume called");
         getSupportLoaderManager().restartLoader(LOADER_CALLBACKS, null, this);
     }
 
     RecyclerView listView;
     ProfileRecyclerAdapter adapter;
-//    ProfileRecyclerAdapter.RecyclerClickInterface clickInterface;
 
     @Override
     public void onLoadFinished(Loader<List<Profile>> loader, final List<Profile> data) {
@@ -126,39 +119,25 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         listView.setLayoutManager(new LinearLayoutManager(this));
         listView.setHasFixedSize(true);
-//        profileAdapter = new ProfileAdapter(MainActivity.this, data);
-//        listView = (ListView)findViewById(R.id.listView);
+
 
 
         adapter = new ProfileRecyclerAdapter(MainActivity.this, data, this);
 
 
-//        listView.setEmptyView(emptyView);
-        if(data!= null){
-            listView.setAdapter(adapter);
-//            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                     profile = profileAdapter.getItem(position);
-//                    Intent intent = new Intent(MainActivity.this, ProfileDetails.class);
-//                    intent.putExtra("Username", profile.getProfile_username())
-//                            .putExtra("Image", profile.getProfile_image())
-//                            .putExtra("Url_link", profile.getProfile_url());
-//                    startActivity(intent);
-//                }
-//            });
+        if(data == null){
+            emptyView.setText("No data found");
         }
+        listView.setAdapter(adapter);
     }
     @Override
     public void onLoaderReset(Loader<List<Profile>> loader) {
 
         listView.setAdapter(new ProfileRecyclerAdapter(this, new ArrayList<Profile>(), this));
     }
-    Toast mToast;
 
     @Override
     public void recyclerClick(int index) {
-//      Log.e("CLICKED: ", "The item is clicked at index " + index);
                 profile = adapter.profileList.get(index);
                     Intent intent = new Intent(MainActivity.this, ProfileDetails.class);
                     intent.putExtra("Username", profile.getProfile_username())

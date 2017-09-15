@@ -41,9 +41,6 @@ public class ProfileRecyclerAdapter extends RecyclerView.Adapter<ProfileRecycler
 
        holder.bind(position);
 
-//        Picasso.with(context).load(image_url).placeholder(R.drawable.placeholder)
-//        .error(R.drawable.share_icon).into(holder.imageView);
-
 
     }
 
@@ -69,20 +66,15 @@ public class ProfileRecyclerAdapter extends RecyclerView.Adapter<ProfileRecycler
 
             textView.setText(profile.getProfile_username());
 
-//            String image_url = profile.getProfile_image();
             Picasso.with(context).load(profile.getProfile_image())
-                    .placeholder(R.drawable.placeholder)
+                    .placeholder(R.drawable.placeholder_icon)
                     .error(R.drawable.share_icon)
                     .into(imageView);
         }
 
         @Override
         public void onClick(View v) {
-//            int clickedPosition = getAdapterPosition();
             recyclerClickInterface.recyclerClick(getAdapterPosition());
-
-
-
         }
     }
 
