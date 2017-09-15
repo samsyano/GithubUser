@@ -67,7 +67,7 @@ public class ProfileRecyclerAdapter extends RecyclerView.Adapter<ProfileRecycler
             textView.setText(profile.getProfile_username());
 
             Picasso.with(context).load(profile.getProfile_image())
-                    .placeholder(R.drawable.placeholder)
+                    .placeholder(R.drawable.image_placeholder)
                     .error(R.drawable.share_icon)
                     .into(imageView);
         }
